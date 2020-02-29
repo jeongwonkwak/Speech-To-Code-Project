@@ -1,5 +1,5 @@
 # Speech-Text-Project
-> Translation model for coding education
+> Translation model for coding education project
 
  This project aims to create a translation model that converts `speech` into `code` using text-mining and speech-recognition. 
  
