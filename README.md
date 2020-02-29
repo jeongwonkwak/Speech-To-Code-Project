@@ -3,5 +3,5 @@
  
 ---
 ## Project (2020.02 ~ )
-* **Weekly Report** : [check here](https://github.com/SoYoungCho/Korean-English-NMT/wiki/Weekly-Report-%231) :)  
+* **Weekly Report** : [check here](https://github.com/jeongwonkwak/Speech-Text-Project/wiki) :)  
 From February 2020, the weekly report can be found there.
