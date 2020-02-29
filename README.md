@@ -1,2 +1,2 @@
 # Speech-Text-Project
-Coding Education Project - Speech Process &amp; Text Mining
+ This project aims to create a translation model that converts 'speech' into 'code' using text-mining and speech-recognition. 
