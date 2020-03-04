@@ -5,16 +5,12 @@ import sentencepiece as spm
 import pandas as pd
 import MeCab
 
-PAD = -1
-BOS = 2
-EOS = 3
+PAD, BOS, EOS = 1, 2, 3
 
-def text_tokenizer(): 
+def Text_tokenizer(): 
     
     m = MeCab.Tagger()
     delete_tag = ['BOS/EOS', 'JKS', 'JKC', 'JKG', 'JKO', 'JKB', 'JKV', 'JKQ', 'JX', 'JC']
-
-    
     
     def remove_josa(sentence):
         sentence_split = sentence.split() # 원본 문장 띄어쓰기로 분리
@@ -45,45 +41,41 @@ def text_tokenizer():
         return result # 온전한 문장을 반환
     
     
+    text_data = pd.read_csv("text_data.csv")
     
-    
-    df = pd.read_csv("test.csv")
-    KOR_data = df['Korean']
-    
-    f = open("kor_no_josa.txt", "w", encoding = 'utf-8')
-    for row in KOR_data[:100000]:
+    f = open("no_josa.txt", "w", encoding = 'utf-8')
+    for row in text_data[:50]:
         f.write(remove_josa(row)) 
         f.write('\n')
     f.close()
     
-    spm.SentencePieceTrainer.Train('--input=kor_no_josa.txt \
-                               --model_prefix=korean_tok \
+    spm.SentencePieceTrainer.Train('--input=no_josa.txt \
+                               --model_prefix=text_tok \
                                --vocab_size=100000 \
                                --hard_vocab_limit=false')
     
     sp = spm.SentencePieceProcessor()
-    sp.Load('korean_tok.model')
+    sp.Load('text_tok.model')
     
     return lambda x : sp.EncodeAsPieces(x)
  
-def English_tokenizer():
+def Code_tokenizer():
     
-    df = pd.read_csv("test.csv")
-    ENG_data = df['English']
-    
-    f = open("eng.txt", "w", encoding = 'utf-8')
-    for row in ENG_data[:100000]:
+    code_data = pd.read_csv("code_data.csv")
+   
+    f = open("code.txt", "w", encoding = 'utf-8')
+    for row in code_data[:50]:
         f.write(row)
         f.write('\n')
     f.close()
     
-    spm.SentencePieceTrainer.Train('--input=eng.txt \
-                               --model_prefix=english_tok \
+    spm.SentencePieceTrainer.Train('--input=code.txt \
+                               --model_prefix=code_tok \
                                --vocab_size=100000\
                                --hard_vocab_limit=false')
     
     sp = spm.SentencePieceProcessor()
-    sp.Load('english_tok.model')
+    sp.Load('code_tok.model')
     
     return lambda x : sp.EncodeAsPieces(x)
 
@@ -112,7 +104,7 @@ class DataLoader():
                                 fix_length = fix_length, 
                                 init_token = None, 
                                 eos_token = None,
-                                tokenize = Korean_tokenizer()
+                                tokenize = Text_tokenizer()
                                 )
         super(DataLoader, self).__init__()
         
@@ -124,7 +116,7 @@ class DataLoader():
                                 fix_length = fix_length, 
                                 init_token = '<BOS>' if use_bos else None, 
                                 eos_token = '<EOS>' if use_eos else None,
-                                tokenize = English_tokenizer()
+                                tokenize = Code_tokenizer()
                                 )
         
         
@@ -176,7 +168,7 @@ class TranslationDataset(data.Dataset):
         src_path, trg_path = tuple(os.path.expanduser(path + x) for x in exts)
         
         examples = []
-        with open(src_path) as src_file, open(trg_path) as trg_file:
+        with open(src_path, encoding = 'utf-8') as src_file, open(trg_path, encoding = 'utf-8') as trg_file:
             for src_line, trg_line in zip(src_file, trg_file):
                 src_line, trg_line = src_line.strip(), trg_line.strip()
 
@@ -190,7 +182,7 @@ class TranslationDataset(data.Dataset):
  
         
 if __name__ == '__main__':
-    loader = DataLoader('C:/Users/USER/Chambit/','C:/Users/USER/Chambit/' , ('text_sample.csv','code_sample.csv'),
+    loader = DataLoader('C:/Users/USER/Chambit/text_code_nmt/','C:/Users/USER/Chambit/text_code_nmt/' , ('text_data.csv','code_data.csv'),
                          shuffle = False, 
                          batch_size = 8
                          )
