@@ -189,25 +189,25 @@ class TranslationDataset(data.Dataset):
         super(TranslationDataset, self).__init__(examples, fields, **kwargs)
  
         
- if __name__ == '__main__':
+if __name__ == '__main__':
 
      """
      argv1,2 : src.csv와 tgt.csv파일이 있는 공통 경로
      (argv3, argv4) : 확장자를 포함한 각 파일 이름
      """
-     loader = DataLoader('C:/Users/USER/Chambit/','C:/Users/USER/Chambit/' , ('text_sample.csv','code_sample.csv'),
+    loader = DataLoader('C:/Users/USER/Chambit/','C:/Users/USER/Chambit/' , ('text_sample.csv','code_sample.csv'),
                          shuffle = False, 
                          batch_size = 8
                          )
     
     
-     print(len(loader.src.vocab))
-     print(len(loader.tgt.vocab))
+    print(len(loader.src.vocab))
+    print(len(loader.tgt.vocab))
     
-     for batch_index, batch in enumerate(loader.train_iter):
-         print(batch_index)
-         print(batch.src)
-         print(batch.tgt)
+    for batch_index, batch in enumerate(loader.train_iter):
+        print(batch_index)
+        print(batch.src)
+        print(batch.tgt)
         
-         if batch_index > 1:
-             break
+        if batch_index > 1:
+            break
