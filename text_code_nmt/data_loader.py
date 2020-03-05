@@ -44,7 +44,7 @@ def Text_tokenizer():
     text_data = pd.read_csv("text_data.csv")
     
     f = open("no_josa.txt", "w", encoding = 'utf-8')
-    for row in text_data[:50]:
+    for row in text_data:
         f.write(remove_josa(row)) 
         f.write('\n')
     f.close()
@@ -64,7 +64,7 @@ def Code_tokenizer():
     code_data = pd.read_csv("code_data.csv")
    
     f = open("code.txt", "w", encoding = 'utf-8')
-    for row in code_data[:50]:
+    for row in code_data:
         f.write(row)
         f.write('\n')
     f.close()
@@ -156,7 +156,7 @@ class DataLoader():
 
 class TranslationDataset(data.Dataset):
 
-    def sort_key(ex):  # 음수와 양수 모두 가능
+    def sort_key(ex):  
         return data.interleave_keys(len(ex.src), len(ex.trg))
 
     def __init__(self, path, exts, fields, max_length=None, **kwargs):
