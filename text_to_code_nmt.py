@@ -156,7 +156,7 @@ def sentence_to_tensor(lang, sentence):
     result = Variable(torch.LongTensor(indexes).view(-1,1))
     return result        
     
-def pair_to_tensor(pair): #질문과 답 짝 페어를 텐서로 변환
+def pair_to_tensor(pair): 
    
     input_tensor = sentence_to_tensor(input_dic, pair[0])
     output_tensor = sentence_to_tensor(output_dic, pair[1])
