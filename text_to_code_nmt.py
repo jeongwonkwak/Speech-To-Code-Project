@@ -50,7 +50,6 @@ class Dic :
             self.word_to_count[word] = self.word_to_count[word] + 1
 
     def readText(): 
-        import pandas as pd
         data = pd.read_csv('./data/data.csv')
         data.columns = ["text", "code"]
         input_sent, output_sent = data["text"], data["code"]
@@ -58,7 +57,7 @@ class Dic :
         input_, output_, pair = [],[],[]
         
         def sentSeparate_text(sents, put_):
-            for sent in sents:
+            for sent in sents[:-1]:
                 sent = str(sent).strip()
                 a = list(sent)
                 b = list(filter((" ").__ne__, a))
@@ -71,7 +70,7 @@ class Dic :
             return put_
         
         def sentSeparate_code(sents, put_):
-            for sent in sents:
+            for sent in sents[:-1]:
                 sent = sent.split()
                 sent = " ".join(sent)
                 put_.append(sent)
@@ -82,11 +81,10 @@ class Dic :
 
         for i in range(len(inputs)):
             pair.append([inputs[i], outputs[i]])
- 
+        
         return inp, outp, pair
         
 class Encoder(nn.Module): 
-    
     def __init__(self, input_size, HIDDEN_SIZE):
         super(Encoder, self).__init__()
         self.HIDDEN_SIZE = HIDDEN_SIZE 
@@ -105,7 +103,6 @@ class Encoder(nn.Module):
         return result
         
 class Decoder(nn.Module):
-    
     def __init__(self, HIDDEN_SIZE, output_size, dropout_p, max_length=MAX_LENGTH):
         super(Decoder, self).__init__()
         self.HIDDEN_SIZE = HIDDEN_SIZE 
@@ -143,7 +140,6 @@ class Decoder(nn.Module):
         return result
         
 def sentence_to_tensor(lang, sentence):
- 
     indexes = []
     for word in sentence.split():
         try :
@@ -161,7 +157,6 @@ def pair_to_tensor(pair):
     input_tensor = sentence_to_tensor(input_dic, pair[0])
     output_tensor = sentence_to_tensor(output_dic, pair[1])
     return (input_tensor, output_tensor)
-    
     
 def train(input_tensor, output_tensor, encoder, decoder, encoder_optimizer, decoder_optimizer, criterion, max_length=MAX_LENGTH): 
     encoder_hidden = encoder.initHidden()
@@ -220,6 +215,7 @@ def trainIters(encoder, decoder , n_iters , learning_rate):
         input_tensor = training_pair[0]
         output_tensor = training_pair[1]
         loss = train(input_tensor, output_tensor, encoder, decoder, encoder_optimizer, decoder_optimizer, criterion)
+        
 def answer_chatBot(encoder, decoder, sentence, max_length=MAX_LENGTH):
     
     sentence = Dic.input_Sentence_Normal(sentence)
@@ -266,11 +262,7 @@ for pair in pairs:
 encoder = Encoder(input_dic.n_words, HIDDEN_SIZE)
 decoder = Decoder(HIDDEN_SIZE, output_dic.n_words, DROPOUT_RATE)
 
-
-
-go = 0 
-eos = 1 
- 
+go, eos = 0, 1 
  
 trainIters(encoder, decoder, N_ITERS,LEARNING_RATE)
 torch.save(encoder, "50000_256_0.01_0.1_0.2_encoder_통합.pth")
@@ -295,7 +287,6 @@ def test(s):
 
     return l
 
-#Chat_bot()
 var1 = ["a", "b", "c", "d"]
 var2 = ["가", "나", "다" , "라"]
 
