@@ -216,7 +216,7 @@ def trainIters(encoder, decoder , n_iters , learning_rate):
         output_tensor = training_pair[1]
         loss = train(input_tensor, output_tensor, encoder, decoder, encoder_optimizer, decoder_optimizer, criterion)
         
-def answer_chatBot(encoder, decoder, sentence, max_length=MAX_LENGTH):
+def translate(encoder, decoder, sentence, max_length=MAX_LENGTH):
     
     sentence = Dic.input_Sentence_Normal(sentence)
     input_tensor = sentence_to_tensor(input_dic, sentence)
@@ -304,7 +304,7 @@ sentence_char = ""
 for i in sentence :
     sentence_char = sentence_char + " " + i
     
-answer = answer_chatBot(save_model_encoder, save_model_decoder,sentence_char)
+answer = translate(save_model_encoder, save_model_decoder,sentence_char)
 
 for i,varible in enumerate(varible_list) :
     answer = answer.replace(var2[i], varible)
