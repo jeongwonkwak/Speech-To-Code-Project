@@ -36,7 +36,6 @@ class Gui() :
     def __init__(self):
          
         self.window = tkinter.Tk()
-        #self.window.configure(bg = "lavender")
         
         self.font = tkinter.font.Font(family = "나눔스퀘어라운드 Bold", size = 28)
         self.font3 = tkinter.font.Font(family = "나눔스퀘어라운드 Regular", size = 20)
