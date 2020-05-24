@@ -68,11 +68,11 @@ class Gui() :
         
     def show_label(self):
         
-        label_voice=tkinter.Label(self.window, text="text",font = self.font, fg = 'black')
-        label_voice.place(x = 520, y = 110, width = 90, height = 30)
+        self.label_voice=tkinter.Label(self.window, text="TEXT",font = self.font, fg = 'black')
+        self.label_voice.place(x = 510, y = 110, width = 90, height = 30)
         
-        label_code=tkinter.Label(self.window, text="code",font = self.font, fg = 'black')
-        label_code.place(x = 860, y = 110, width = 90, height = 30)
+        self.label_code=tkinter.Label(self.window, text="CODE",font = self.font, fg = 'black')
+        self.label_code.place(x = 860, y = 110, width = 90, height = 30)
         
         label_convert=tkinter.Label(self.window, text="convert",font = self.font4, fg = 'grey')
         label_convert.place(x = 420, y = 45, width = 90, height = 30)
@@ -80,25 +80,27 @@ class Gui() :
         label_record=tkinter.Label(self.window, text="record",font = self.font4, fg = 'grey')
         label_record.place(x = 60, y = 45, width = 90, height = 30)
         
-        label_langugae=tkinter.Label(self.window, text="langugae",font = self.font4, fg = 'grey')
+        label_langugae=tkinter.Label(self.window, text="language",font = self.font4, fg = 'grey')
         label_langugae.place(x = 60, y = 375, width = 100, height = 30)
         
         label_software=tkinter.Label(self.window, text="software",font = self.font4, fg = 'grey')
-        label_software.place(x = 60, y = 555, width = 100, height = 30)
+        label_software.place(x = 60, y = 515, width = 100, height = 30)
         
+        arrow = PhotoImage(file="next.png")
+        self.arrow = Label(image=arrow, height=40)
+        self.arrow.image = arrow
+        self.arrow.place(x = 710, y = 400, width = 45, height = 50)
     
     def show_voice_listbox(self) :
         
         #scrollbar=tkinter.Scrollbar(self.window,relief='solid',bd = 4)
         #scrollbar.place(x = 160, y = 100, width = 30, height = 80)
         
-
         self.voice_listbox=tkinter.Listbox(self.window, relief='groove', bd=2, font=self.font5)
-        self.voice_listbox.place(x = 410, y = 160, width = 300, height = 600)
+        self.voice_listbox.place(x = 405, y = 150, width = 300, height = 610)
         
         self.code_listbox=tkinter.Listbox(self.window, relief='groove', bd=2, font=self.font5)
-        self.code_listbox.place(x = 750, y = 160, width = 300, height = 600)
-        
+        self.code_listbox.place(x = 755, y = 150, width = 300, height = 610)
     
         
     def show_outer_line(self):
@@ -110,11 +112,10 @@ class Gui() :
         outer_line2.place(x = 30, y = 60, width = 330, height = 300)
         
         outer_line3=tkinter.Label(self.window, relief="groove",bd = 2)
-        outer_line3.place(x = 30, y = 390, width = 330, height = 150)
+        outer_line3.place(x = 30, y = 385, width = 330, height = 120)
         
         outer_line4=tkinter.Label(self.window, relief="groove",bd = 2)
-        outer_line4.place(x = 30, y = 570, width = 330, height = 150)
-        
+        outer_line4.place(x = 30, y = 530, width = 330, height = 150)  
         
         
     def show_button(self) :
