@@ -135,7 +135,23 @@ class Gui() :
                                      bd = 3,text = "send",font = self.font4)
         self.button_send.place(x= 170,y = 675,width = 150,height = 30)
         
+        self.delete=tkinter.Button(self.window, text="새로고침", font=self.font6, command=self.deleteText)
+        self.delete.place(x=30, y=720, width=70, height=40)
         
+    def getText(self):
+
+        self.result1 = self.voice_listbox.get(0, "end")
+        self.result2 = self.code_listbox.get(0, "end")
+        return self.result1+self.result2
+        
+    def deleteText(self):
+        
+        result = self.getText()
+        for i in result:
+            self.voice_listbox.delete(0, "end")
+            self.code_listbox.delete(0, "end")
+            
+            
     def show_combobox(self) :
 
         values1 = ["  Python","  C", "  Java"]
@@ -154,8 +170,6 @@ class Gui() :
         ckeck_box=tkinter.Checkbutton(self.window,text=" auto",variable=checkVar1,font = self.font4)
         ckeck_box.place(x = 60, y = 670)
     
-#     def active_button_stop(self):
-#         return 1
         
     def voice_to_text(self):
         
@@ -189,7 +203,6 @@ class Gui() :
             stream.stop_stream()
             stream.close()
             audio.terminate()
-            
 
             waveFile = wave.open(WAVE_OUTPUT_FILENAME, 'wb')
             waveFile.setnchannels(CHANNELS)
@@ -197,17 +210,14 @@ class Gui() :
             waveFile.setframerate(RATE)
             waveFile.writeframes(b''.join(frames))
             waveFile.close()
-  
 
             if len(string_list) > MIN_STRING_LIST_LENGTH:
                 
-        
                 r = sr.Recognizer()
                 korean_audio = sr.AudioFile("./data/wav/file.wav")
                 
                 with korean_audio as source:
                     mandarin = r.record(source)
-                    
 
                 try :
                     sentence = r.recognize_google(audio_data=mandarin, language="ko-KR")
@@ -218,4 +228,10 @@ class Gui() :
                         break
                 except:
                     print('*** 다시 말해주세요 ***')
+                    
+    def voice_play(self):
+        audio_file = AudioSegment.from_file(file="./data/wav/file.wav")
+        play(audio_file)
+                            
+                    
     Gui()
