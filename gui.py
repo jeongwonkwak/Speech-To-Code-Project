@@ -37,16 +37,17 @@ class Gui() :
          
         self.window = tkinter.Tk()
         
-        self.font = tkinter.font.Font(family = "나눔스퀘어라운드 Bold", size = 28)
-        self.font3 = tkinter.font.Font(family = "나눔스퀘어라운드 Regular", size = 20)
-        self.font4 = tkinter.font.Font(family = "나눔스퀘어라운드 Regular", size = 18)
-        self.font5 = tkinter.font.Font(family = "나눔스퀘어라운드 Regular", size = 15)
-        self.font6 = tkinter.font.Font(family = "나눔스퀘어라운드 Light", size = 12)
+        self.font = tkinter.font.Font(family = "나눔스퀘어 Bold", size = 24)
+        self.font4 = tkinter.font.Font(family = "나눔스퀘어 Regular", size = 18)
+        self.font5 = tkinter.font.Font(family = "나눔스퀘어 Regular", size = 15)
+        self.font6 = tkinter.font.Font(family = "나눔스퀘어 Light", size = 12)
         
-        self.window.title("STC(Speech to Code)프로그램 - 괭수팀")
+        self.window.title("Kwangwoon Univ. Chambit Design Project (GWAENGSU(괭수) - STC(Speech to Code) Program)")
         self.window.geometry("1090x800")
         self.window.resizable(False, False)
         
+        icon = PhotoImage(file='icon/dialogue.png')
+        self.window.iconphoto(False, icon)
 
         self.show_outer_line()
         self.show_voice_listbox()
@@ -54,12 +55,7 @@ class Gui() :
         self.show_button()
         self.show_combobox()
         self.show_checkbox()
-        #arrow_image = Image.open("image/arrow.png")
-        #arrow_image = arrow_image.resize((20, 10), Image.ANTIALIAS)
         
-        #arrow = ImageTk.PhotoImage(arrow_image)
-        #arrow_label = Label(self.window,image = arrow)
-        #arrow_label.place(x = 360, y = 125, width = 90, height = 60)
         
         t = threading.Thread(target=self.voice_to_text)
         t.start()
@@ -86,7 +82,7 @@ class Gui() :
         label_software=tkinter.Label(self.window, text="software",font = self.font4, fg = 'grey')
         label_software.place(x = 60, y = 515, width = 100, height = 30)
         
-        arrow = PhotoImage(file="next.png")
+        arrow = PhotoImage(file="icon/next.png")
         self.arrow = Label(image=arrow, height=40)
         self.arrow.image = arrow
         self.arrow.place(x = 710, y = 400, width = 45, height = 50)
