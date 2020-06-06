@@ -287,8 +287,8 @@ def test(s):
 
     return l
 
-var1 = ["a", "b", "c", "d"]
-var2 = ["가", "나", "다" , "라"]
+var1 = ["A", "B", "C", "D", "E", "F", "G"]
+var2 = ["가", "나", "다" , "라", "마", "바", ""]
 
 sentence = input()
 varible_list = test(sentence)
